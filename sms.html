@@ -17,7 +17,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" crossorigin="anonymous"></script>
   <script type="text/javascript">
     let mode = "save";
 
@@ -50,13 +49,13 @@
 
     function saveOrEdit() {
       if (mode == "save") {
-        Cookies.set("data",
+        localStorage.setItem("data",
           JSON.stringify({
             numberToCall: document.getElementById("numberToCall").value,
             numberToText: document.getElementById("numberToText").value,
             dropGateMessage: document.getElementById("dropGateMessage").value,
             checkSignalMessage: document.getElementById("checkSignalMessage").value,
-          }), { expires: 365 * 5 });
+          }));
 
         setDisabled("Edit", true);
         mode = "edit";
@@ -67,7 +66,7 @@
     }
 
     window.onload = function (e) {
-      let data = Cookies.get("data");
+      let data = localStorage.getItem("data");
       if (data !== undefined) {
         data = JSON.parse(data);
         document.getElementById("numberToCall").value = data.numberToCall;
